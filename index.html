@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Performance: Truffleat Caviar</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #3b82f6;
+            --success-color: #10b981;
+            --bg-color: #f8fafc;
+            --card-radius: 16px;
+        }
+        
+        body { 
+            font-family: 'Prompt', sans-serif; 
+            background-color: var(--bg-color); 
+            color: #334155;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .report-paper {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            border-radius: var(--card-radius);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 50px;
+        }
+
+        /* Branding Header */
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+        .client-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: -0.5px;
+        }
+        .report-period {
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Executive Summary Box */
+        .summary-box {
+            background-color: #ecfdf5;
+            border-left: 5px solid var(--success-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 35px;
+        }
+        .summary-title { font-weight: 700; color: #065f46; margin-bottom: 8px; font-size: 1.1rem; }
+        .summary-text { font-size: 1rem; line-height: 1.6; color: #1e293b; margin: 0; }
+
+        /* HERO Metrics */
+        .hero-section {
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--card-radius);
+            padding: 35px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .hero-item { text-align: center; }
+        .hero-label { opacity: 0.8; font-size: 0.9rem; font-weight: 300; margin-bottom: 5px; }
+        .hero-value { font-size: 2.2rem; font-weight: 700; line-height: 1.1; }
+        .hero-sub { font-size: 0.9rem; color: #86efac; font-weight: 500; margin-top: 5px; }
+
+        /* Metric Cards */
+        .metric-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            height: 100%;
+            transition: transform 0.2s;
+        }
+        .metric-card:hover { transform: translateY(-2px); border-color: #cbd5e1; }
+        .metric-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        /* Ad Creative Card */
+        .ad-creative-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 100%;
+            transition: all 0.2s;
+        }
+        .ad-creative-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transform: translateY(-5px);
+        }
+        .ad-image-container {
+            height: 250px; 
+            overflow: hidden;
+            background-color: #f1f5f9;
+            position: relative;
+        }
+        .ad-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+        .ad-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .ad-info { padding: 15px; }
+
+        /* Analysis Cards */
+        .analysis-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .analysis-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .analysis-title i { margin-right: 8px; color: var(--accent-color); }
+
+        /* List Design */
+        .data-list-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .data-list-row:hover { background-color: #f8fafc; border-color: #f1f5f9; }
+        
+        /* Placement List */
+        .placement-icon {
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            background: #eff6ff;
+            color: var(--accent-color);
+            display: flex; align-items: center; justify-content: center;
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+        .placement-info { flex-grow: 1; }
+        .placement-name { font-weight: 600; color: #334155; font-size: 0.9rem; margin-bottom: 2px; }
+        .placement-bar-bg { height: 6px; width: 100%; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
+        .placement-bar-fill { height: 100%; background: var(--accent-color); border-radius: 10px; }
+        .placement-value { min-width: 60px; text-align: right; font-weight: 700; color: #0f172a; }
+
+        /* Province List */
+        .province-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 8px 0;
+            border-bottom: 1px dashed #f1f5f9;
+        }
+        .province-row:last-child { border-bottom: none; margin-bottom: 0; }
+        .province-name { width: 140px; font-weight: 600; color: #334155; font-size: 0.95rem; }
+        .province-bar-container { flex-grow: 1; height: 10px; background-color: #f1f5f9; border-radius: 20px; margin: 0 20px; overflow: hidden; }
+        .province-bar { height: 100%; border-radius: 20px; transition: width 1s ease-out; }
+        .province-value { width: 150px; text-align: right; }
+        .province-count { font-weight: 700; color: #0f172a; }
+        .province-percent { font-size: 0.85rem; color: #94a3b8; margin-left: 6px; }
+
+        /* Next Steps */
+        .next-steps {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 2px dashed #e2e8f0;
+        }
+
+        @media print {
+            body { background: white; }
+            .report-paper { margin: 0; box-shadow: none; padding: 0; max-width: 100%; }
+            .col-md-4, .col-md-6, .col-lg-7, .col-lg-5 { width: 100% !important; display: block !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="report-paper">
+    
+    <header class="brand-header">
+        <div class="d-flex align-items-center gap-3">
+            <div style="width: 50px; height: 50px; background: #1e293b; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="bi bi-gem fs-4"></i>
+            </div>
+            <div>
+                <div class="client-logo">Truffleat Caviar</div>
+                <div class="text-muted small">Campaign: [Truffleat] caviar blackpage (bangkok)</div>
+            </div>
+        </div>
+        <div class="text-end">
+            <div class="report-period"><i class="bi bi-calendar-event me-2"></i>18 พ.ย. 25 - 18 ธ.ค. 25</div>
+        </div>
+    </header>
+
+    <div class="summary-box">
+        <div class="summary-title"><i class="bi bi-graph-up-arrow me-2"></i>บทสรุปประสิทธิภาพ (High Performance)</div>
+        <p class="summary-text">
+            แคมเปญทำผลงานได้ <strong>ยอดเยี่ยมมาก</strong> โดยสร้างผลตอบแทน (ROAS) สูงถึง <strong>8.89 เท่า</strong> 
+            จากงบประมาณ 10,509 บาท สามารถสร้างยอดขายได้ถึง <strong>93,429 บาท</strong> 
+            ต้นทุนต่อการซื้อ (Cost per Purchase) อยู่ที่ 875 บาท ซึ่งคุ้มค่าเมื่อเทียบกับมูลค่าสินค้า (Caviar) 
+        </p>
+    </div>
+
+    <h5 class="fw-bold mb-3 text-secondary">ภาพรวมผลตอบแทน (Financial Overview)</h5>
+    
+    <div class="mb-4 overflow-hidden shadow-sm" style="border-radius: 12px; border: 1px solid #e2e8f0;">
+        <img src="https://i.postimg.cc/sgBQmfyC/Screenshot-2569-02-03-at-12-03.jpg" 
+             alt="Financial Overview Chart" 
+             class="w-100" 
+             style="height: 150px; object-fit: cover; display: block;">
+    </div>
+    <div class="hero-section">
+        <div class="hero-item">
+            <div class="hero-label">งบประมาณที่ใช้ (Spent)</div>
+            <div class="hero-value">฿10,509</div>
+        </div>
+        <div style="width: 1px; height: 60px; background: rgba(255,255,255,0.2);"></div>
+        <div class="hero-item">
+            <div class="hero-label">ยอดขายที่ทำได้ (Revenue)</div>
+            <div class="hero-value">฿93,429</div>
+        </div>
+        <div style="width: 1px; height: 60px; background: rgba(255,255,255,0.2);"></div>
+        <div class="hero-item">
+            <div class="hero-label">ผลตอบแทน (ROAS)</div>
+            <div class="hero-value text-warning">8.89x</div>
+            <div class="hero-sub"><i class="bi bi-stars"></i> Excellent</div>
+        </div>
+    </div>
+
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-icon bg-primary bg-opacity-10 text-primary"><i class="bi bi-people"></i></div>
+                <h6 class="text-muted">การเข้าถึง (Reach)</h6>
+                <h3 class="fw-bold">52,354</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-icon bg-info bg-opacity-10 text-info"><i class="bi bi-eye"></i></div>
+                <h6 class="text-muted">การมองเห็น (Impressions)</h6>
+                <h3 class="fw-bold">105,828</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-icon bg-warning bg-opacity-10 text-warning"><i class="bi bi-chat-text"></i></div>
+                <h6 class="text-muted">ผลลัพธ์ (Results)</h6>
+                <h3 class="fw-bold">78</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="metric-card">
+                <div class="metric-icon bg-success bg-opacity-10 text-success"><i class="bi bi-cart-check"></i></div>
+                <h6 class="text-muted">การซื้อ (Purchases)</h6>
+                <h3 class="fw-bold">12</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-5">
+        <div class="d-flex justify-content-between align-items-end mb-3">
+            <h5 class="fw-bold m-0 text-secondary">ตัวอย่างโฆษณาที่ใช้ (Ad Creatives)</h5>
+            <span class="text-muted small">Showing top performing ads</span>
+        </div>
+        
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="ad-creative-card">
+                    <div class="ad-image-container">
+                        <span class="ad-badge">Best Seller</span>
+                        <img src="https://scontent.fbkk13-2.fna.fbcdn.net/v/t39.30808-6/541144181_1359256846205840_8959146904143060937_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_ohc=ioXRd2fsJX4Q7kNvwHU9FUJ&_nc_oc=AdlbBiDVAUSQP1DVH8UGE-L7w7jI4j4h3-xTuXsfhU1Lp79FI-0eu-mTnP8EVwpD5qKDteD-YRXrLVhYh74xKg00&_nc_zt=23&_nc_ht=scontent.fbkk13-2.fna&_nc_gid=6u8svq38-kI08YwzGxA7Cg&oh=00_AfvuJvWdW0Km5PvxDpNsZbt86iA_en9Fa7r4MIgyedPSyA&oe=6986C06A" alt="Caviar Ad 1">
+                    </div>
+                    <div class="ad-info text-center">
+                        <h6 class="fw-bold mb-1">Image: Premium Set</h6>
+                        <small class="text-muted">Format: Single Image</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="fw-bold mb-3 text-secondary">การวิเคราะห์กลุ่มเป้าหมาย (Audience Insights)</h5>
+    
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="analysis-card h-100">
+                <div class="analysis-title"><i class="bi bi-person-lines-fill"></i> ช่วงอายุ (Age Groups) - Results</div>
+                <div style="height: 200px;">
+                    <canvas id="ageChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="analysis-card h-100">
+                <div class="analysis-title"><i class="bi bi-gender-ambiguous"></i> เพศ (Gender) - Results</div>
+                <div style="height: 200px; position: relative; width: 60%; margin: 0 auto;">
+                    <canvas id="genderChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="analysis-card h-100">
+                <div class="analysis-title"><i class="bi bi-phone"></i> อุปกรณ์ที่ใช้ (Devices) - Results</div>
+                <div style="height: 200px; position: relative; width: 60%; margin: 0 auto;">
+                    <canvas id="deviceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="analysis-card h-100">
+                <div class="analysis-title d-flex justify-content-between">
+                    <span><i class="bi bi-layout-text-window-reverse"></i> ตำแหน่งโฆษณา (Placements)</span>
+                    <small class="text-muted fw-normal">Total Results: 78</small>
+                </div>
+                
+                <div class="alert alert-light border-0 bg-primary bg-opacity-10 p-2 mb-3 d-flex align-items-center rounded-3">
+                    <i class="bi bi-trophy-fill text-primary me-2"></i>
+                    <div class="small text-dark lh-1">
+                        <strong>Feed</strong> เป็นตำแหน่งที่สร้างผลลัพธ์ได้สูงสุด (64% ของทั้งหมด)
+                    </div>
+                </div>
+
+                <div id="placementListContainer">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="analysis-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="analysis-title m-0"><i class="bi bi-geo-alt-fill"></i> การมองเห็นแยกตามจังหวัด (Impressions by Province)</div>
+                    <div class="text-end text-muted small">Total Impressions: <strong>105,828</strong></div>
+                </div>
+                
+                <div id="provinceListContainer">
+                    </div>
+
+                <div class="mt-4 p-3 bg-light rounded-3 d-flex align-items-start gap-3">
+                    <i class="bi bi-info-circle-fill text-primary mt-1"></i>
+                    <div>
+                        <strong class="text-dark">วิเคราะห์ผล:</strong>
+                        <span class="text-muted">กรุงเทพมหานครครองสัดส่วนการมองเห็นถึง 92.4% ซึ่งตรงกลุ่มเป้าหมายสินค้า Luxury ส่วนจังหวัดปริมณฑลอื่นๆ มีการกระจายตัวเล็กน้อยตามลำดับ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-1 border-light mb-5" style="border-radius: 16px; overflow: hidden;">
+        <div class="card-header bg-white border-bottom pt-4 px-4 pb-3">
+            <h5 class="fw-bold m-0 text-secondary"><i class="bi bi-pie-chart-fill me-2"></i>วิเคราะห์ความคุ้มค่า (Financial Analysis)</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="row g-0 h-100">
+                <div class="col-lg-7 p-4">
+                    <div style="height: 320px; position: relative;">
+                        <canvas id="roiChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-5 bg-light border-start border-light p-4 d-flex flex-column justify-content-center">
+                    <div class="mb-4 pb-4 border-bottom border-white">
+                        <h6 class="text-muted fw-semibold text-uppercase ls-1 mb-2" style="letter-spacing: 1px; font-size: 0.75rem;">Estimated Net Profit</h6>
+                        <div class="d-flex align-items-baseline">
+                            <h3 class="fw-bold text-success m-0 me-2">+฿82,919</h3>
+                            <small class="text-muted">(Margin ~789%)</small>
+                        </div>
+                        <div class="text-muted small mt-2"><i class="bi bi-info-circle me-1"></i> คำนวณจาก ยอดขายรวม ลบด้วย ต้นทุนโฆษณา</div>
+                    </div>
+                    <div>
+                         <h6 class="text-muted fw-semibold text-uppercase ls-1 mb-3" style="letter-spacing: 1px; font-size: 0.75rem;">Return on Investment (ROAS)</h6>
+                        <div class="d-flex align-items-start">
+                            <div class="me-3 text-primary mt-1"><i class="bi bi-graph-up-arrow fs-4"></i></div>
+                            <div>
+                                <div class="fs-4 fw-bold text-dark lh-1 mb-1">8.89x</div>
+                                <div class="text-muted small">หมายความว่า การลงทุนทุกๆ 1 บาท สร้างยอดขายกลับมาได้ประมาณ 8.89 บาท</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="next-steps">
+        <h5 class="fw-bold mb-3"><i class="bi bi-clipboard-check me-2 text-primary"></i>ข้อเสนอแนะ (Recommendations)</h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-transparent ps-0">
+                <i class="bi bi-check-circle-fill text-success me-2"></i> 
+                <strong>Scale Up:</strong> ด้วย ROAS 8.89x ควรพิจารณาเพิ่มงบประมาณ 20-30% ในแคมเปญนี้
+            </li>
+            <li class="list-group-item bg-transparent ps-0">
+                <i class="bi bi-arrow-right-circle-fill text-primary me-2"></i> 
+                <strong>Creative Refresh:</strong> เตรียมภาพหรือคอนเทนต์ใหม่สำรองไว้ หากเริ่มเห็น Cost per Result สูงขึ้นในอนาคต
+            </li>
+        </ul>
+    </div>
+
+    <div class="text-center mt-5 text-muted" style="font-size: 0.8rem;">
+        ข้อมูลจากระบบ Facebook Ads Manager | Exported: 2025-12-18
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+<script>
+    Chart.register(ChartDataLabels);
+
+    Chart.defaults.font.family = "'Prompt', sans-serif";
+    Chart.defaults.color = "#64748b";
+
+    // --- ROI Chart ---
+    const ctxRoi = document.getElementById('roiChart').getContext('2d');
+    new Chart(ctxRoi, {
+        type: 'bar',
+        data: {
+            labels: ['ต้นทุนโฆษณา (Cost)', 'ยอดขายรวม (Revenue)'],
+            datasets: [{
+                label: 'จำนวนเงิน (THB)',
+                data: [10509.72, 93429.02],
+                backgroundColor: ['rgba(51, 65, 85, 0.9)', 'rgba(16, 185, 129, 0.9)'],
+                borderWidth: 0,
+                borderRadius: 6,
+                barPercentage: 0.5,
+                datalabels: { display: false } 
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { beginAtZero: true, grid: { borderDash: [3, 3], color: '#e2e8f0' }, ticks: { callback: function(value) { return '฿' + (value/1000).toFixed(0) + 'k'; } } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+
+    // --- Age Chart (Bar) ---
+    new Chart(document.getElementById('ageChart'), {
+        type: 'bar',
+        data: {
+            labels: ['18-24', '25-34', '35-44', '45-54', '55-64', '65+'],
+            datasets: [{
+                label: 'Results',
+                data: [5, 7, 20, 18, 16, 12],
+                backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                borderRadius: 4,
+                datalabels: { display: false }
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, grid: { display: false } }, x: { grid: { display: false } } }
+        }
+    });
+
+    // --- Gender Chart (Doughnut) ---
+    new Chart(document.getElementById('genderChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['หญิง', 'ชาย'],
+            datasets: [{
+                data: [29, 49],
+                backgroundColor: ['#f472b6', '#60a5fa'],
+                borderWidth: 0,
+                datalabels: { color: 'white', font: { weight: 'bold' } }
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+
+    // --- Device Chart (Pie) ---
+    new Chart(document.getElementById('deviceChart'), {
+        type: 'pie',
+        data: {
+            labels: ['iPhone', 'Android', 'iPad'],
+            datasets: [{
+                data: [50, 26, 2],
+                backgroundColor: ['#334155', '#10b981', '#cbd5e1'],
+                borderWidth: 0,
+                datalabels: { color: 'white' }
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'bottom' } }
+        }
+    });
+
+    // --- 1. NEW PLACEMENT LIST (Redesigned) ---
+    const placementData = [
+        { name: "Feed", value: 50, icon: "bi-layout-text-window-reverse" },
+        { name: "IG Stories", value: 12, icon: "bi-instagram" },
+        { name: "FB Reels", value: 7, icon: "bi-play-btn" },
+        { name: "FB Stories", value: 5, icon: "bi-collection-play" },
+        { name: "IG Reels", value: 4, icon: "bi-play-btn" }
+    ];
+
+    const placementContainer = document.getElementById('placementListContainer');
+    let placementHtml = '';
+    const maxPlacementVal = 50; // สูงสุดคือ Feed
+
+    placementData.forEach(item => {
+        let percent = (item.value / maxPlacementVal) * 100;
+        
+        placementHtml += `
+            <div class="data-list-row">
+                <div class="placement-icon">
+                    <i class="bi ${item.icon}"></i>
+                </div>
+                <div class="placement-info">
+                    <div class="placement-name">${item.name}</div>
+                    <div class="placement-bar-bg">
+                        <div class="placement-bar-fill" style="width: ${percent}%"></div>
+                    </div>
+                </div>
+                <div class="placement-value">
+                    ${item.value}
+                </div>
+            </div>
+        `;
+    });
+    placementContainer.innerHTML = placementHtml;
+
+
+    // --- 2. PROVINCE LIST (Redesigned) ---
+    const provinceData = [
+        { name: "Bangkok", value: 97798, percent: 92.4, color: "#0f172a" },
+        { name: "Nonthaburi", value: 2574, percent: 2.4, color: "#64748b" },
+        { name: "Pathum Thani", value: 2386, percent: 2.3, color: "#94a3b8" },
+        { name: "Samut Prakan", value: 1945, percent: 1.8, color: "#cbd5e1" },
+        { name: "Samut Sakhon", value: 585, percent: 0.6, color: "#e2e8f0" },
+        { name: "Nakhon Pathom", value: 467, percent: 0.4, color: "#e2e8f0" },
+        { name: "Chachoengsao", value: 61, percent: 0.1, color: "#f1f5f9" },
+        { name: "Ayutthaya", value: 12, percent: 0.0, color: "#f1f5f9" }
+    ];
+
+    const provContainer = document.getElementById('provinceListContainer');
+    let provHtml = '';
+
+    provinceData.forEach(item => {
+        let barWidth = item.percent;
+        if (barWidth < 1) barWidth = 1; 
+
+        provHtml += `
+            <div class="province-row">
+                <div class="province-name text-truncate" title="${item.name}">
+                    ${item.name == 'Bangkok' ? '<i class="bi bi-star-fill text-warning me-1 small"></i>' : ''}
+                    ${item.name}
+                </div>
+                <div class="province-bar-container">
+                    <div class="province-bar" style="width: ${barWidth}%; background-color: ${item.color};"></div>
+                </div>
+                <div class="province-value">
+                    <span class="province-count">${item.value.toLocaleString()}</span>
+                    <span class="province-percent">(${item.percent}%)</span>
+                </div>
+            </div>
+        `;
+    });
+    provContainer.innerHTML = provHtml;
+
+</script>
+
+</body>
+</html>
